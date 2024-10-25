@@ -1,0 +1,38 @@
+{
+  "name": "vscode-j5s",
+  "displayName": "VS Code - J5S Library",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "scripts": {
+    "build": "npx js-yaml ./syntaxes/bcl.tmLanguage.yaml > ./syntaxes/bcl.tmLanguage.json"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "bcl",
+        "extensions": [
+          ".bcl",
+          ".j5s"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "bcl",
+        "scopeName": "source.bcl",
+        "path": "./syntaxes/bcl.tmLanguage.json"
+      }
+    ]
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "vscode-languageclient": "^9.0.1"
+  }
+}

@@ -1,0 +1,90 @@
+---
+scopeName: "source.bcl"
+patterns:
+  - "include": "#body"
+
+repository:
+  body:
+    patterns:
+      - include: "#comments"
+      - include: "#strings" 
+      - include: "#docs" 
+      - include: "#block_markers"
+      - include: "#blocks" 
+      - include: "#assigns" 
+      - include: "#nobody_blocks"
+
+  comments:
+    patterns:
+      - include: "#line_comments"
+      - include: "#multi_line_comments"
+
+  line_comments:
+    name: "comment.line.double-slash.bcl"
+    begin: "//"
+    end: "$\\n?"
+
+  multi_line_comments: 
+    name: "comment.block.bcl"
+    begin: "/\\*"
+    end: "\\*/"
+
+  strings:
+    patterns:
+    - include: "#string_double"
+    - include: "#string_regex"
+
+  string_double: 
+    patterns:
+      - name: "string.quoted.double.bcl"
+        begin: "\""
+        end: "\""
+
+  string_regex:
+    patterns:
+      - name: "string.regexp.bcl"
+        begin: "\\/"
+        end: "\\/"
+
+  docs: 
+    name: "string.other.bcl"
+    begin: "\\|"
+    end: "$"
+
+  block_markers:
+    name: "keyword.operator.bcl"
+    match: "[?:!]"
+
+  blocks:
+    #         |> Any amount of Whitespace
+    #         |   |> Start of Identifier
+    #         |   |       |> 'Word' characters, valid in Identifier
+    #         |   |       |  |> .identifier, any number of times
+    #         |   |       |  |               |> Group 1 end
+    #         |   |       |  |               | |> Valid-ish characters, loose rules
+    #         |   |       |  |               | |             | Ending in an open block. 
+    begin: ^\s*([a-zA-Z]\w*(\.[a-zA-Z]\w+)*)([\w\s\:!?\.]*){
+    end: \}\s*$
+    patterns: 
+      - include: "#body"
+
+    captures:
+      1:
+        name: "entity.name.type.ba.bcl"
+
+  assigns:
+    # Like block, but ends in an: sign, then free for any match
+    begin: ^^\s*([a-zA-Z]\w*(\.[a-zA-Z]\w+)*)([\w\s\:!?\.]*)=.*$
+    end: $
+    beginCaptures:
+      1: 
+        name: "entity.name.type.bcl"
+
+  nobody_blocks: 
+    # Like block and assign, but no: or {
+    # End of the regex captures either a // comment or | documentation, or just the EOL.
+    match: ^\s*([a-zA-Z]\w*(\.[a-zA-Z]\w+)*)([\w\s\:!?\.]*)(\||\/\/|$)
+    captures:
+      1:
+        name: "entity.name.type.bcl"
+
