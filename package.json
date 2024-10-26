@@ -1,16 +1,26 @@
 {
   "name": "vscode-j5s",
-  "displayName": "VS Code - J5S Library",
+  "displayName": "J5",
   "description": "",
   "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.94.0"
-  },
+  "license": "MIT",
   "categories": [
     "Programming Languages"
   ],
+  "repository": "git+https://github.com/pentops/code-j5.git",
   "scripts": {
-    "build": "npx js-yaml ./syntaxes/bcl.tmLanguage.yaml > ./syntaxes/bcl.tmLanguage.json"
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "build": "npx js-yaml ./syntaxes/bcl.tmLanguage.yaml > ./syntaxes/bcl.tmLanguage.json",
+    "package": "vsce package -o vscode-j5.vsix",
+    "installDevExtension": "npm install && ./node_modules/.bin/vsce package -o ./out/vscode-j5-dev.vsix && code --install-extension ./out/vscode-j5-dev.vsix"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "bcl invokes binaries set up by its configuration. A malicious actor could exploit this to run arbitrary code on your machine."
+    }
   },
   "contributes": {
     "languages": [
@@ -30,6 +40,17 @@
         "path": "./syntaxes/bcl.tmLanguage.json"
       }
     ]
+  },
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.8.1",
+    "@types/vscode": "^1.94.0",
+    "@vscode/vsce": "^3.2.1",
+    "@vscode/test-electron": "2.4.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
