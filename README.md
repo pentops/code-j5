@@ -1,6 +1,6 @@
 # bcl README
 
-Provides basic VS Code editor support for the [Block Config Language (BCL)](https://github.com/pentops/bcl.go).
+Provides basic VS Code (AKA VSCode) editor support for the [Block Config Language (BCL)](https://github.com/pentops/bcl.go).
 
 ## Features
 
