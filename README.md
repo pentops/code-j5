@@ -1,21 +1,9 @@
-# bcl README
+# bcl/j5s Visual Studio Code LSP client plugin
 
-Provides basic VS Code (AKA VSCode) editor support for the [Block Config Language (BCL)](https://github.com/pentops/bcl.go).
-
-## Features
-
-Provides syntax highlighting for [BCL (Block Config Language)](https://github.com/pentops/bcl.go) files (`.bcl` and `.j5s`).
+VS Code (AKA VSCode) LSP support for the [Block Config Language (BCL)](https://github.com/pentops/bcl.go).
 
 ## Requirements
 
-Currently, you must have the BCL LSP server installed. You can do this by running `go install github.com/pentops/bcl.go/cmd/bcl@latest`
+Have the J5 Build CLI installed from https://github.com/pentops/j5build (and in your path?).
 
-Test your installation by running `bcl lsp`.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 0.0.1
-
-Initial release
+Ensure `j5 lsp` works. Press the enter key to exit the LSP.
